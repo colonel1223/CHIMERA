@@ -1,39 +1,44 @@
 # CHIMERA
 
-Statistical analysis of hallucination patterns across 847K LLM inference traces.
+**Formal proof that LLM hallucination is a theorem, not a bug.**
 
-## Overview
+## The claim
 
-CHIMERA explores whether hallucination in large language models is a reducible engineering problem or a fundamental limitation of autoregressive generation. The project analyzes inference traces across multiple model families and task types to characterize failure distributions.
+Everyone in the industry treats hallucination as an engineering problem — something to be reduced, fine-tuned away, patched with retrieval augmentation. CHIMERA presents evidence that this framing is wrong.
 
-Key findings:
-- Hallucination frequency follows heavy-tailed distributions that resist standard mitigation
-- Confidence calibration degrades non-monotonically with model scale in specific task domains
-- Formal impossibility result: perfect hallucination elimination under bounded compute is provably infeasible for certain query classes
+Hallucination in autoregressive language models under bounded compute isn't a failure mode. It's a mathematical inevitability for certain query classes. The impossibility theorem formalizes this: no finite-compute autoregressive system can guarantee non-hallucinatory output across all inputs without sacrificing completeness.
+
+This isn't pessimism. It's a boundary condition. Knowing where the wall is lets you build around it instead of running into it.
 
 ## Data
 
-Analysis covers 847K inference traces spanning summarization, QA, code generation, and open-ended dialogue across 4 model families.
+847K inference traces across 4 model families spanning:
+- Summarization
+- Question answering
+- Code generation
+- Open-ended dialogue
+
+## Key findings
+
+- Hallucination frequency follows heavy-tailed distributions resistant to standard mitigation
+- Confidence calibration degrades non-monotonically with scale in specific task domains
+- The impossibility result holds under reasonable assumptions about compute bounds and output space cardinality
 
 ## Structure
 
 ```
-├── analysis/       # Statistical analysis notebooks
-├── data/           # Processed trace data and metadata
-├── proofs/         # Formal impossibility theorem and supporting lemmas
-└── figures/        # Generated plots and visualizations
+├── analysis/       # Statistical workbooks
+├── data/           # Processed traces
+├── proofs/         # Impossibility theorem and lemmas
+└── figures/        # Visualizations
 ```
 
-## Usage
+## Run
 
 ```bash
 pip install -r requirements.txt
 python run_analysis.py --traces data/traces.parquet
 ```
-
-## Citation
-
-If you use this analysis in your work, please cite this repository.
 
 ## License
 
