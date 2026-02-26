@@ -1,44 +1,31 @@
 # CHIMERA
 
-**Formal proof that LLM hallucination is a theorem, not a bug.**
+**Hallucination is a theorem, not a bug.**
 
-## The claim
+## What this is
 
-Everyone in the industry treats hallucination as an engineering problem — something to be reduced, fine-tuned away, patched with retrieval augmentation. CHIMERA presents evidence that this framing is wrong.
+CHIMERA is an interactive research environment that presents the case for LLM hallucination as a structural property of autoregressive generation under bounded compute — not an engineering flaw to be patched.
 
-Hallucination in autoregressive language models under bounded compute isn't a failure mode. It's a mathematical inevitability for certain query classes. The impossibility theorem formalizes this: no finite-compute autoregressive system can guarantee non-hallucinatory output across all inputs without sacrificing completeness.
+The project combines a formal impossibility argument with an analysis of 847K inference traces across multiple model families, rendered as a live web experience that lets you explore the data and the reasoning together.
 
-This isn't pessimism. It's a boundary condition. Knowing where the wall is lets you build around it instead of running into it.
+## Key claims
 
-## Data
-
-847K inference traces across 4 model families spanning:
-- Summarization
-- Question answering
-- Code generation
-- Open-ended dialogue
-
-## Key findings
-
-- Hallucination frequency follows heavy-tailed distributions resistant to standard mitigation
-- Confidence calibration degrades non-monotonically with scale in specific task domains
-- The impossibility result holds under reasonable assumptions about compute bounds and output space cardinality
+- Hallucination frequency follows heavy-tailed distributions that resist standard mitigation
+- Confidence calibration degrades non-monotonically with model scale in specific task domains
+- Perfect hallucination elimination under bounded compute is provably infeasible for certain query classes
 
 ## Structure
 
 ```
-├── analysis/       # Statistical workbooks
-├── data/           # Processed traces
-├── proofs/         # Impossibility theorem and lemmas
-└── figures/        # Visualizations
+├── index.html                 # Main research environment (interactive)
+├── CHIMERA_Model_v2.jsx       # React visualization component
+├── CHIMERA_Research_Paper.docx # Formal writeup with proofs
+└── DEPLOY.sh                  # GitHub Pages deployment
 ```
 
 ## Run
 
-```bash
-pip install -r requirements.txt
-python run_analysis.py --traces data/traces.parquet
-```
+Open `index.html` in any browser, or visit the live version via GitHub Pages.
 
 ## License
 
