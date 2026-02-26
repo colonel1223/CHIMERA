@@ -49,3 +49,18 @@ print(f'α={fit.alpha:.2f}, finite_var={fit.finite_variance}')
 ## License
 
 MIT
+
+---
+
+## Research Ecosystem
+
+CHIMERA is part of a unified AI safety research program. See [colonel1223.net](https://colonel1223.net) for the full portfolio.
+
+**Live Demo:** [colonel1223.github.io/CHIMERA](https://colonel1223.github.io/CHIMERA/)
+
+| Related Project | Connection |
+|----------------|------------|
+| [conformal-multimodal](https://github.com/colonel1223/conformal-multimodal) | Distribution-free methods applied to hallucination confidence analysis |
+| [alignment-tax-quantifier](https://github.com/colonel1223/alignment-tax-quantifier) | Alignment interventions change the hallucination distribution — measured here |
+| [SHOGGOTH](https://github.com/colonel1223/SHOGGOTH) | Visual complement — CHIMERA proves the bound, SHOGGOTH shows what failure looks like |
+| [Research Papers](https://github.com/colonel1223/ai-research-modern-alchemy) | Information-theoretic impossibility analysis and heavy-tailed statistics |
