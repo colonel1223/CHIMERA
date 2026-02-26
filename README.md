@@ -6,41 +6,44 @@
 
 ## The claim
 
-Hallucination in autoregressive LLMs under bounded compute isn't a failure mode to be patched. It's a mathematical property. CHIMERA presents the evidence: statistical analysis of inference traces across model families, and a formal argument for why perfect elimination is provably infeasible for certain query classes.
+Hallucination in autoregressive LLMs under bounded compute isn't a failure mode to be patched — it's a structural property of open-ended generation over combinatorial output spaces. CHIMERA presents the evidence.
 
 ## What's here
 
-- **Interactive research environment** (`index.html`) — Explore the data and the argument together in the browser
-- **React visualization** (`CHIMERA_Model_v2.jsx`) — Trace analysis visualization component
-- **Formal writeup** (`CHIMERA_Research_Paper.docx`) — Full paper with proofs
-- **Analysis code** (`analysis/trace_analysis.py`) — Statistical tools: power-law tail fitting, calibration-by-scale measurement, impossibility bound computation
+| Path | What |
+|------|------|
+| `index.html` | Interactive research environment (browser) |
+| `CHIMERA_Model_v2.jsx` | React visualization component |
+| `CHIMERA_Research_Paper.docx` | Formal paper |
+| `analysis/distributions.py` | Power-law tail fitting (Hill estimator with bootstrap KS), log-normal/exponential comparison |
+| `analysis/impossibility.py` | Information-theoretic lower bounds on hallucination rate |
+| `analysis/entropy.py` | Shannon entropy, KL divergence, MI estimation for calibration analysis |
 
-## Quick start
+## Key results
+
+**Heavy tails**: Hallucination lengths follow a power law with tail index α < 2 (infinite variance). Standard error bars for hallucination rate are mathematically meaningless.
+
+**Impossibility bound**: For vocabulary V, sequence length L, and compute budget C, the hallucination floor is 1 - C/(c·L·|V|^L). For any realistic parameters, this is indistinguishable from 1 for L > 64.
+
+**Calibration failure**: MI(confidence; correctness) is low — model confidence is near-uninformative about actual accuracy.
+
+## Run
 
 ```bash
 # Interactive environment
 open index.html
 
-# Run trace analysis
-python analysis/trace_analysis.py
-```
+# Impossibility bounds
+python analysis/impossibility.py
 
-## Key findings
-
-- Hallucination frequency follows heavy-tailed distributions (tail index < 2 = infinite variance)
-- Confidence calibration degrades non-monotonically with model scale
-- Impossibility bound: given finite compute budget, minimum hallucination rate is provably > 0 for open-ended generation
-
-## Structure
-
-```
-├── index.html                    # Interactive research environment
-├── CHIMERA_Model_v2.jsx          # React visualization
-├── CHIMERA_Research_Paper.docx   # Formal paper with proofs
-├── analysis/
-│   └── trace_analysis.py         # Statistical analysis tools
-├── DEPLOY.sh
-└── README.md
+# Distribution fitting (requires scipy)
+python -c "
+from analysis.distributions import hill_estimator
+import numpy as np
+data = np.random.pareto(1.5, 10000) + 1
+fit = hill_estimator(data)
+print(f'α={fit.alpha:.2f}, finite_var={fit.finite_variance}')
+"
 ```
 
 ## License
