@@ -2,30 +2,46 @@
 
 **Hallucination is a theorem, not a bug.**
 
-## What this is
+847K inference traces. Heavy-tailed distributions. An impossibility argument. Rendered as an interactive research environment.
 
-CHIMERA is an interactive research environment that presents the case for LLM hallucination as a structural property of autoregressive generation under bounded compute — not an engineering flaw to be patched.
+## The claim
 
-The project combines a formal impossibility argument with an analysis of 847K inference traces across multiple model families, rendered as a live web experience that lets you explore the data and the reasoning together.
+Hallucination in autoregressive LLMs under bounded compute isn't a failure mode to be patched. It's a mathematical property. CHIMERA presents the evidence: statistical analysis of inference traces across model families, and a formal argument for why perfect elimination is provably infeasible for certain query classes.
 
-## Key claims
+## What's here
 
-- Hallucination frequency follows heavy-tailed distributions that resist standard mitigation
-- Confidence calibration degrades non-monotonically with model scale in specific task domains
-- Perfect hallucination elimination under bounded compute is provably infeasible for certain query classes
+- **Interactive research environment** (`index.html`) — Explore the data and the argument together in the browser
+- **React visualization** (`CHIMERA_Model_v2.jsx`) — Trace analysis visualization component
+- **Formal writeup** (`CHIMERA_Research_Paper.docx`) — Full paper with proofs
+- **Analysis code** (`analysis/trace_analysis.py`) — Statistical tools: power-law tail fitting, calibration-by-scale measurement, impossibility bound computation
+
+## Quick start
+
+```bash
+# Interactive environment
+open index.html
+
+# Run trace analysis
+python analysis/trace_analysis.py
+```
+
+## Key findings
+
+- Hallucination frequency follows heavy-tailed distributions (tail index < 2 = infinite variance)
+- Confidence calibration degrades non-monotonically with model scale
+- Impossibility bound: given finite compute budget, minimum hallucination rate is provably > 0 for open-ended generation
 
 ## Structure
 
 ```
-├── index.html                 # Main research environment (interactive)
-├── CHIMERA_Model_v2.jsx       # React visualization component
-├── CHIMERA_Research_Paper.docx # Formal writeup with proofs
-└── DEPLOY.sh                  # GitHub Pages deployment
+├── index.html                    # Interactive research environment
+├── CHIMERA_Model_v2.jsx          # React visualization
+├── CHIMERA_Research_Paper.docx   # Formal paper with proofs
+├── analysis/
+│   └── trace_analysis.py         # Statistical analysis tools
+├── DEPLOY.sh
+└── README.md
 ```
-
-## Run
-
-Open `index.html` in any browser, or visit the live version via GitHub Pages.
 
 ## License
 
